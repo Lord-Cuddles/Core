@@ -1,4 +1,4 @@
-local version = "1.0 alpha 1"
+local version = "1.0 alpha 2"
 
 if not fs.exists("update.lua") then
   -- Download 'update.lua' from GitHub
@@ -18,8 +18,8 @@ if not fs.exists("update.lua") then
     file.close()
 end
 
-if fs.exists("main.lua") then
-    shell.run("main.lua")
+if fs.exists("main") then
+    shell.run("main")
 else
-    shell.run("update.lua")
+    shell.run("update")
 end
