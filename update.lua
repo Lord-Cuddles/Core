@@ -1,4 +1,4 @@
-local version = "1.0 alpha 3"
+local version = "1.0 alpha 4"
 local args = {...}
 
 if args[1] == "update" then
@@ -36,7 +36,7 @@ if fs.exists(dir) then
     fs.move(dir, dir.."_old")
 end
 
-local content = data.readAll()
+
 local file = fs.open(dir, "w")
 file.write(content)
 file.close()
