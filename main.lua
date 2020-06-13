@@ -1,27 +1,27 @@
 
-local version = "1.0 alpha 2"
+local version = "1.0 alpha 3"
 
 local c = {
-    DARK_RED = 1,
-    RED = 2,
-    GOLD = 4,
-    YELLOW = 8,
-    DARK_GREEN = 16,
-    GREEN = 32,
-    CYAN = 64,
-    AQUA = 64, 
-    DARK_CYAN = 128,
-    DARK_AQUA = 128, 
-    DARK_BLUE = 256,
-    BLUE = 512,
-    LIGHT_PURPLE = 1024,
-    DARK_PURPLE = 2048,
-    WHITE = 4096,
-    GRAY = 8192,
-    GREY = 8192,
-    DARK_GRAY = 16384,
-    DARK_GREY = 16384,
-    BLACK = 32768
+    darkRed = 1,
+    red = 2,
+    gold = 4,
+    yellow = 8,
+    darkGreen = 16,
+    green = 32,
+    cyan = 64,
+    aqua = 64, 
+    darkCyan = 128,
+    darkAqua = 128, 
+    darkBlue = 256,
+    blue = 512,
+    lightPurple = 1024,
+    darkPurple = 2048,
+    white = 4096,
+    gray = 8192,
+    grey = 8192,
+    darkGrey = 16384,
+    darkGray = 16384,
+    black = 32768
 }
 
 local codes = {
@@ -67,5 +67,11 @@ function setPalette(getCodes)
         term.setPaletteColour(colours[index], getCodes[index])
     end
 end
-
+term.setBackgroundColor(c.black)
+term.setTextColor(c.white)
+term.clear()
+term.setCursorPos(1,1)
+term.setBackgroundColor(c.yellow)
+term.clearLine()
+print()
 setPalette(codes)
