@@ -1,4 +1,4 @@
-local version = "1.0 alpha 2"
+local version = "1.0 alpha 3"
 local args = {...}
 
 if args[1] == "update" then
@@ -11,10 +11,11 @@ else
     dir = "main"
     url = "https://raw.githubusercontent.com/Lord-Cuddles/Core/master/main.lua"
 end
-
-local file_old = fs.open(dir, "r")
-local content_old = file_old.readAll()
-file_old.close()
+if fs.exists(dir) then
+    local file_old = fs.open(dir, "r")
+    local content_old = file_old.readAll()
+    file_old.close()
+end
 
 local data = http.get(url)
 if not data then
