@@ -1,5 +1,5 @@
 
-local version = "1.0 alpha 9"
+local version = "1.0 alpha 10"
 
 --[[ SETUP - PLACE INITIAL FUNCTIONS BELOW! ]]
 
@@ -159,7 +159,7 @@ end
 
 
 alertLevels = {
-    green="darkGreen",
+    green="darkBlue",
     yellow="gold",
     red="darkRed"
 }
@@ -170,7 +170,7 @@ setPalette(codes)
 
 local last = "Primary Controller"
 while true do
-    midPrint(last, {heading=true, fgColour=alertLevel, bgColour="silver"})
+    midPrint(last, {heading=true, fgColour="silver", bgColour=alertLevel})
     break
 end
 
