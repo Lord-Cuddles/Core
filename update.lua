@@ -40,4 +40,6 @@ end
 local file = fs.open(dir, "w")
 file.write(content)
 file.close()
-print("Complete")
+print("Complete, restarting...")
+sleep(1.5)
+os.reboot()
