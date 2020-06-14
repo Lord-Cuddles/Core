@@ -1,5 +1,5 @@
 
-local version = "1.0 alpha 8"
+local version = "1.0 alpha 9"
 
 --[[ SETUP - PLACE INITIAL FUNCTIONS BELOW! ]]
 
@@ -100,6 +100,8 @@ function midPrint(text, options)
     local xSize, ySize = term.getSize()
     local fgOld, bgOld = term.getTextColor(), term.getBackgroundColor()
     if not options then options = {} end
+    if options.fgColor then options.fgColour = options.fgColor end
+    if options.bgColor then options.bgColour = options.bgColor end
     if not options.fgColour then
         options.fgColour = "silver"
     end
@@ -166,9 +168,9 @@ alertLevel = alertLevels.green
 setPalette(codes)
 --[[ RUNTIME - PLACE FUNCTIONS ABOVE! ]]
 
-local last = "Primary Controller - "..version
+local last = "Primary Controller"
 while true do
-    midPrint(last, {heading=true, fgColor=alertLevel}, bgColor="silver")
+    midPrint(last, {heading=true, fgColour=alertLevel, bgColour="silver"})
     break
 end
 
