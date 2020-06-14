@@ -1,5 +1,5 @@
 
-local version = "1.0 alpha 5"
+local version = "1.0 alpha 6"
 
 local c = {
     darkRed = 1,
@@ -63,7 +63,7 @@ local defaultcodes = {
     black=0x111111
 }
 
-function colours(fore, back)
+function format(fore, back)
     if not fore then
         fore = "default"
     end
@@ -79,11 +79,10 @@ function colours(fore, back)
     term.setTextColor(c[fore] or c["white"])
     term.setBackgroundColor(c[back]or c["black"])
 end
-colors = colours
 
 function setPalette(getCodes)
     for index, code in pairs(getCodes) do
-        term.setPaletteColour(c[index], getCodes[index])
+        term.setPaletteColour(colours[index], getCodes[index])
     end
 end
 
@@ -91,12 +90,13 @@ function midPrint(text, options)
     local xSize, ySize = term.getSize()
     if options.heading == true then
         term.setCursorPos(1,1)
-        colours("black", "orange")
+        format("black", "orange")
     end
     term.clearLine()
     
     local xPos, yPos = term.getCursorPos()
     term.setCursorPos((xPos/2)-(#text/2)-1, yPos)
+    if not text then text = "" end
     if not options.write then
         print(text)
     else
@@ -105,7 +105,7 @@ function midPrint(text, options)
     
     if options.heading == true then
         term.setCursorPos(1,2)
-        colours("default")
+        format("default")
     end
 end
 
@@ -136,7 +136,7 @@ end
 
 
 setPalette(codes)
-midPrint()
+midPrint("Hello, World!" {heading=true})
 
 
 --[[ END OF CODE - DO NOT INSERT ANYTHING AFTER THIS! ]]--
