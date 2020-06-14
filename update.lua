@@ -1,4 +1,4 @@
-local version = "1.0 alpha 4"
+local version = "1.0 alpha 5"
 local args = {...}
 
 if args[1] == "update" then
