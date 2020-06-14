@@ -175,7 +175,7 @@ alertLevels = {
     red="darkRed"
 }
 
-alertLevel = alertLevels.green
+alertLevel = alertLevels.yellow
 
 setPalette(codes)
 --[[ RUNTIME - PLACE FUNCTIONS ABOVE! ]]
@@ -184,15 +184,10 @@ local last = "Primary Controller"
 local foot = ""
 local tasks = {}
 while true do
+    
     midPrint(last, {heading=true, fgColour="silver", bgColour=alertLevel})
     midPrint(foot, {footer=true, noLine=true})
-    if shift_held and ctrl_held then
-        foot = "Press <shift+ctrl+tab> to update 'startup'"
-    elseif ctrl_held then
-        foot = "Press <ctrl+tab> to update 'update'"
-    elseif shift_held then
-        foot = "Press <shift+tab> to update 'main'"
-    end
+    
     local event, v1, v2, v3, v4, v5 = os.pullEvent()
     if event == "key" then
         if v1 == keys.leftShift then
@@ -212,6 +207,17 @@ while true do
         elseif key == keys.space then
             break
         end
+        
+        if shift_held and ctrl_held then
+            foot = "Press <shift+ctrl+tab> to update 'startup'"
+        elseif ctrl_held then
+            foot = "Press <ctrl+tab> to update 'update'"
+        elseif shift_held then
+            foot = "Press <shift+tab> to update 'main'"
+        else
+            foot = ""
+        end
+        
     elseif event == "key_up" then
         if v1 == keys.leftShift then
             shift_held = false
