@@ -1,5 +1,5 @@
 
-local version = "1.0 alpha 3"
+local version = "1.0 alpha 2"
 
 local c = {
     darkRed = 1,
@@ -17,6 +17,7 @@ local c = {
     lightPurple = 1024,
     darkPurple = 2048,
     white = 4096,
+    silver = 8192,
     gray = 8192,
     grey = 8192,
     darkGrey = 16384,
@@ -62,16 +63,82 @@ local defaultcodes = {
     black=0x111111
 }
 
+function colours(fore, back)
+    if fore == "default" then
+        fore = "white"
+        if not back then
+            back = "default"
+        end
+    end
+    if back == "default" then
+        back = "black"
+    end
+    term.setTextColor(c[fore] or c["white"])
+    term.setBackgroundColor(c[back]or c["black"])
+end
+colors = colours
+
 function setPalette(getCodes)
     for index, code in pairs(getCodes) do
         term.setPaletteColour(colours[index], getCodes[index])
     end
 end
-term.setBackgroundColor(c.black)
-term.setTextColor(c.white)
+
+function midPrint(text, options)
+    local xSize, ySize = term.getSize()
+    if options.heading == true then
+        term.setCursorPos(1,1)
+        colours("black", "orange")
+    end
+    term.clearLine()
+    
+    local xPos, yPos = term.getCursorPos()
+    term.setCursorPos((xPos/2)-(#text/2)-1, yPos)
+    if not options.write then
+        print(text)
+    else
+        write(text)
+    end
+    
+    if options.heading == true then
+        term.setCursorPos(1,2)
+        colours("default")
+    end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+setPalette(codes)
+midPrint()
+
+
+--[[ END OF CODE - DO NOT INSERT ANYTHING AFTER THIS! ]]--
+setPalette(defaultcodes)
+term.setTextColor(colours.white)
+term.setBackgroundColor(colours.black)
 term.clear()
 term.setCursorPos(1,1)
-term.setBackgroundColor(c.yellow)
-term.clearLine()
-print()
-setPalette(codes)
