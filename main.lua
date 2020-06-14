@@ -1,5 +1,5 @@
 
-local version = "1.0 alpha 6"
+local version = "1.0 alpha 7"
 
 local c = {
     darkRed = 1,
@@ -136,7 +136,7 @@ end
 
 
 setPalette(codes)
-midPrint("Hello, World!" {heading=true})
+midPrint("Hello, World!", {heading=true})
 
 
 --[[ END OF CODE - DO NOT INSERT ANYTHING AFTER THIS! ]]--
