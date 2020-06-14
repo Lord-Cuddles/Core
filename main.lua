@@ -1,5 +1,5 @@
 
-local version = "1.0 alpha 14"
+local version = "1.0 alpha 15"
 
 --[[ SETUP - PLACE INITIAL FUNCTIONS BELOW! ]]
 
@@ -181,11 +181,11 @@ setPalette(codes)
 --[[ RUNTIME - PLACE FUNCTIONS ABOVE! ]]
 
 local last = "Primary Controller - "..version
-local foot = ""
+local foot = " "
 local tasks = {}
 while true do
     
-    midPrint(last, {heading=true, fgColour="silver", bgColour=alertLevel})
+    midPrint(last, {heading=true, fgColour="white", bgColour=alertLevel})
     midPrint(foot, {footer=true, noLine=true})
     
     local event, v1, v2, v3, v4, v5 = os.pullEvent()
@@ -226,6 +226,17 @@ while true do
         elseif v1 == keys.leftAlt then
             alt_held = false
         end
+        
+        if shift_held and ctrl_held then
+            foot = "Press <shift+ctrl+tab> to update 'startup'"
+        elseif ctrl_held then
+            foot = "Press <ctrl+tab> to update 'update'"
+        elseif shift_held then
+            foot = "Press <shift+tab> to update 'main'"
+        else
+            foot = " "
+        end
+        
     elseif event == "notification" then
         last = v1
     elseif event == "modem_message" then
