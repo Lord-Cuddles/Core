@@ -1,5 +1,5 @@
 
-local version = "1.0 alpha 12"
+local version = "1.0 alpha 13"
 
 --[[ SETUP - PLACE INITIAL FUNCTIONS BELOW! ]]
 
