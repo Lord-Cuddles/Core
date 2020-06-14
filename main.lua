@@ -1,5 +1,7 @@
 
-local version = "1.0 alpha 7"
+local version = "1.0 alpha 8"
+
+--[[ SETUP - PLACE INITIAL FUNCTIONS BELOW! ]]
 
 local c = {
     darkRed = 1,
@@ -87,17 +89,36 @@ function setPalette(getCodes)
 end
 
 function midPrint(text, options)
+    --[[
+        Available options:
+        "fgColour" - Overrides foreground colour
+        "bgColour" - Overrides background colour
+        "heading" - Changes the written heading
+        "noClear" - Does not clear the line before printing
+        "noLine" - Does not add a new line character to the end
+    ]]
     local xSize, ySize = term.getSize()
+    local fgOld, bgOld = term.getTextColor(), term.getBackgroundColor()
+    if not options then options = {} end
+    if not options.fgColour then
+        options.fgColour = "silver"
+    end
+    if not options.bgColour then
+        options.bgColour = "darkGreen"
+    end
+    
     if options.heading == true then
         term.setCursorPos(1,1)
-        format("black", "orange")
     end
-    term.clearLine()
+    format(options.fgColour or "silver", options.bgColour or "darkGreen")
+    if not options.noClear then
+        term.clearLine()
+    end
     
     local xPos, yPos = term.getCursorPos()
-    term.setCursorPos((xPos/2)-(#text/2)-1, yPos)
+    term.setCursorPos((xSize/2)-(#text/2)-1, yPos)
     if not text then text = "" end
-    if options.write then
+    if options.noLine then
         write(text)
     else
         print(text)
@@ -107,6 +128,8 @@ function midPrint(text, options)
         term.setCursorPos(1,2)
         format("default")
     end
+    term.setTextColor(fgOld)
+    term.setBackgroundColor(bgOld)
 end
 
 
@@ -133,13 +156,24 @@ end
 
 
 
-
+alertLevels = {
+    green="darkGreen",
+    yellow="gold",
+    red="darkRed"
+}
+alertLevel = alertLevels.green
 
 setPalette(codes)
-midPrint("Hello, World!" {heading=true})
+--[[ RUNTIME - PLACE FUNCTIONS ABOVE! ]]
 
+local last = "Primary Controller - "..version
+while true do
+    midPrint(last, {heading=true, fgColor=alertLevel}, bgColor="silver")
+    break
+end
 
 --[[ END OF CODE - DO NOT INSERT ANYTHING AFTER THIS! ]]--
+os.pullEvent("char")
 setPalette(defaultcodes)
 term.setTextColor(colours.white)
 term.setBackgroundColor(colours.black)
