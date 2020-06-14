@@ -1,5 +1,5 @@
 
-local version = "1.0 alpha 15"
+local version = "1.0 alpha 16"
 
 --[[ SETUP - PLACE INITIAL FUNCTIONS BELOW! ]]
 
@@ -200,9 +200,9 @@ while true do
             if shift_held and ctrl_held then
                 shell.run("update startup")
             elseif shift_held then
-                shell.run("update update")
-            elseif ctrl_held then
                 shell.run("update")
+            elseif ctrl_held then
+                shell.run("update update")
             end
         elseif v1 == keys.space then
             break
