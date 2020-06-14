@@ -1,5 +1,5 @@
 
-local version = "1.0 alpha 2"
+local version = "1.0 alpha 5"
 
 local c = {
     darkRed = 1,
@@ -64,6 +64,9 @@ local defaultcodes = {
 }
 
 function colours(fore, back)
+    if not fore then
+        fore = "default"
+    end
     if fore == "default" then
         fore = "white"
         if not back then
@@ -80,7 +83,7 @@ colors = colours
 
 function setPalette(getCodes)
     for index, code in pairs(getCodes) do
-        term.setPaletteColour(colours[index], getCodes[index])
+        term.setPaletteColour(c[index], getCodes[index])
     end
 end
 
