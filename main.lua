@@ -1,5 +1,5 @@
 
-local version = "1.0 alpha 13"
+local version = "1.0 alpha 14"
 
 --[[ SETUP - PLACE INITIAL FUNCTIONS BELOW! ]]
 
@@ -180,7 +180,7 @@ alertLevel = alertLevels.yellow
 setPalette(codes)
 --[[ RUNTIME - PLACE FUNCTIONS ABOVE! ]]
 
-local last = "Primary Controller"
+local last = "Primary Controller - "..version
 local foot = ""
 local tasks = {}
 while true do
