@@ -1,4 +1,4 @@
-local version = "1.0 alpha 5"
+local version = "1.0 alpha 6"
 local args = {...}
 
 if args[1] == "update" then
@@ -23,9 +23,14 @@ if not data then
 end
 
 local content = data.readAll()
-if content == content_old then
-    print("Warning: No changes detected between versions")
-    print("This is usually a cache issue, try again in 5 minutes")
+local file_old = fs.open(dir, "r")
+if file_old then
+    content_old = file_old.readAll()
+    file_old.close()
+    if content == content_old then
+        print("Warning: No changes detected between versions")
+        print("This is usually a cache issue, try again in 5 minutes")
+    end
 end
 
 if fs.exists(dir.."_old") then
