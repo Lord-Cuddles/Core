@@ -97,10 +97,10 @@ function midPrint(text, options)
     local xPos, yPos = term.getCursorPos()
     term.setCursorPos((xPos/2)-(#text/2)-1, yPos)
     if not text then text = "" end
-    if not options.write then
-        print(text)
-    else
+    if options.write then
         write(text)
+    else
+        print(text)
     end
     
     if options.heading == true then
@@ -136,7 +136,7 @@ end
 
 
 setPalette(codes)
-midPrint("Hello, World!", {heading=true})
+midPrint("Hello, World!" {heading=true})
 
 
 --[[ END OF CODE - DO NOT INSERT ANYTHING AFTER THIS! ]]--
