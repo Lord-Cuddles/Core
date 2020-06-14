@@ -1,5 +1,5 @@
 
-local version = "1.0 alpha 11"
+local version = "1.0 alpha 12"
 
 --[[ SETUP - PLACE INITIAL FUNCTIONS BELOW! ]]
 
@@ -103,16 +103,6 @@ function midPrint(text, options)
     if not options then options = {} end
     if options.fgColor then options.fgColour = options.fgColor end
     if options.bgColor then options.bgColour = options.bgColor end
-    if not options.fgColour then
-        options.fgColour = "silver"
-    end
-    if not options.bgColour then
-        options.bgColour = "darkGreen"
-    end
-    
-    if options.heading == true then
-        term.setCursorPos(1,1)
-    end
     if options.footer == true then
         term.setCursorPos(1,ySize)
         if not options.fgColour then
@@ -121,6 +111,17 @@ function midPrint(text, options)
         if not options.bgColour then
             options.bgColour = "black"
         end
+    else
+        if not options.fgColour then
+            options.fgColour = "silver"
+        end
+        if not options.bgColour then
+            options.bgColour = "darkGreen"
+        end
+    end
+    
+    if options.heading == true then
+        term.setCursorPos(1,1)
     end
     format(options.fgColour or "silver", options.bgColour or "darkGreen")
     if not options.noClear then
@@ -194,13 +195,13 @@ while true do
     end
     local event, v1, v2, v3, v4, v5 = os.pullEvent()
     if event == "key" then
-        if key == keys.leftShift then
+        if v1 == keys.leftShift then
             shift_held = true
-        elseif key == keys.leftCtrl then
+        elseif v1 == keys.leftCtrl then
             ctrl_held = true
-        elseif key == keys.leftAlt then
+        elseif v1 == keys.leftAlt then
             alt_held = true
-        elseif key == keys.tab then
+        elseif v1 == keys.tab then
             if shift_held and ctrl_held then
                 shell.run("update startup")
             elseif shift_held then
@@ -212,11 +213,11 @@ while true do
             break
         end
     elseif event == "key_up" then
-        if key == keys.leftShift then
+        if v1 == keys.leftShift then
             shift_held = false
-        elseif key == keys.leftCtrl then
+        elseif v1 == keys.leftCtrl then
             ctrl_held = false
-        elseif key == keys.leftAlt then
+        elseif v1 == keys.leftAlt then
             alt_held = false
         end
     elseif event == "notification" then
