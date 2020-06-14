@@ -204,7 +204,7 @@ while true do
             elseif ctrl_held then
                 shell.run("update")
             end
-        elseif key == keys.space then
+        elseif v1 == keys.space then
             break
         end
         
