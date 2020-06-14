@@ -1,5 +1,5 @@
 
-local version = "1.0 alpha 10"
+local version = "1.0 alpha 11"
 
 --[[ SETUP - PLACE INITIAL FUNCTIONS BELOW! ]]
 
@@ -94,6 +94,7 @@ function midPrint(text, options)
         "fgColour" - Overrides foreground colour
         "bgColour" - Overrides background colour
         "heading" - Changes the written heading
+        "footer" - Changes the written footer
         "noClear" - Does not clear the line before printing
         "noLine" - Does not add a new line character to the end
     ]]
@@ -112,21 +113,30 @@ function midPrint(text, options)
     if options.heading == true then
         term.setCursorPos(1,1)
     end
+    if options.footer == true then
+        term.setCursorPos(1,ySize)
+        if not options.fgColour then
+            options.fgColour = "darkGrey"
+        end
+        if not options.bgColour then
+            options.bgColour = "black"
+        end
+    end
     format(options.fgColour or "silver", options.bgColour or "darkGreen")
     if not options.noClear then
         term.clearLine()
     end
     
     local xPos, yPos = term.getCursorPos()
-    term.setCursorPos((xSize/2)-(#text/2)-1, yPos)
+    term.setCursorPos((xSize/2)-(#text/2), yPos)
     if not text then text = "" end
-    if options.noLine then
+    if options.noLine or options.footer then
         write(text)
     else
         print(text)
     end
     
-    if options.heading == true then
+    if options.heading or options.footer then
         term.setCursorPos(1,2)
         format("default")
     end
@@ -163,15 +173,59 @@ alertLevels = {
     yellow="gold",
     red="darkRed"
 }
+
 alertLevel = alertLevels.green
 
 setPalette(codes)
 --[[ RUNTIME - PLACE FUNCTIONS ABOVE! ]]
 
 local last = "Primary Controller"
+local foot = ""
+local tasks = {}
 while true do
     midPrint(last, {heading=true, fgColour="silver", bgColour=alertLevel})
-    break
+    midPrint(foot, {footer=true, noLine=true})
+    if shift_held and ctrl_held then
+        foot = "Press <shift+ctrl+tab> to update 'startup'"
+    elseif ctrl_held then
+        foot = "Press <ctrl+tab> to update 'update'"
+    elseif shift_held then
+        foot = "Press <shift+tab> to update 'main'"
+    end
+    local event, v1, v2, v3, v4, v5 = os.pullEvent()
+    if event == "key" then
+        if key == keys.leftShift then
+            shift_held = true
+        elseif key == keys.leftCtrl then
+            ctrl_held = true
+        elseif key == keys.leftAlt then
+            alt_held = true
+        elseif key == keys.tab then
+            if shift_held and ctrl_held then
+                shell.run("update startup")
+            elseif shift_held then
+                shell.run("update update")
+            elseif ctrl_held then
+                shell.run("update")
+            end
+        elseif key == keys.space then
+            break
+        end
+    elseif event == "key_up" then
+        if key == keys.leftShift then
+            shift_held = false
+        elseif key == keys.leftCtrl then
+            ctrl_held = false
+        elseif key == keys.leftAlt then
+            alt_held = false
+        end
+    elseif event == "notification" then
+        last = v1
+    elseif event == "modem_message" then
+        -- What should happen if there is a message from a connected PC?
+    elseif event == "task_complete" then
+        foot = "Task Complete: "..v1
+    end
 end
 
 --[[ END OF CODE - DO NOT INSERT ANYTHING AFTER THIS! ]]--
