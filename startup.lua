@@ -1,4 +1,6 @@
-local version = "1.0 alpha 2"
+local version = "1.0 alpha 3"
+term.clear()
+term.setCursorPos(1,1)
 
 if not fs.exists("update.lua") then
   -- Download 'update.lua' from GitHub
